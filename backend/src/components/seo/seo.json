@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_seo_seos",
+  "info": {
+    "displayName": "SEO",
+    "icon": "lightbulb"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "keywords": {
+      "type": "text"
+    },
+    "meta": {
+      "displayName": "meta",
+      "type": "component",
+      "repeatable": true,
+      "component": "seo.meta"
+    }
+  }
+}

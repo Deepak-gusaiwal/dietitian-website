@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "healthy_recipes",
+  "info": {
+    "singularName": "healthy-recipe",
+    "pluralName": "healthy-recipes",
+    "displayName": "Healthy Recipe",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "content": {
+      "type": "blocks"
+    },
+    "youtubevideo": {
+      "type": "string"
+    },
+    "recipes_categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::recipes-category.recipes-category"
+    },
+    "SEO": {
+      "type": "component",
+      "repeatable": false,
+      "component": "seo.seo"
+    }
+  }
+}

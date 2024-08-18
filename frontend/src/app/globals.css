@@ -1,0 +1,502 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --headerHeight: 60px;
+}
+*,
+::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+/* ================================= base */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+h1 {
+  @apply text-4xl font-bold;
+}
+h2 {
+  @apply text-3xl font-semibold;
+}
+h3 {
+  @apply text-2xl font-medium;
+}
+h4 {
+  @apply text-xl font-medium;
+}
+h5 {
+  @apply text-lg font-medium;
+}
+h6 {
+  @apply text-base font-medium;
+}
+p {
+  @apply text-zinc-600;
+}
+img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.gradientButton {
+  background: linear-gradient(90deg, #ff9676, #e6508f);
+  background-size: 200%;
+  background-position: 0%;
+  @apply text-white duration-300 relative isolate;
+}
+.gradientButton svg {
+  max-width: 0;
+  transition: 300ms ease;
+  @apply text-2xl bg-success-400 rounded-full shadow-md;
+}
+.gradientButton:hover {
+  background-position: 100%;
+}
+.gradientButton:hover svg {
+  transform: rotate(-45deg);
+  max-width: 200px;
+}
+.gradientButton:active {
+  transform: scale(0.9);
+}
+.gradientButton:active svg {
+  transform: scale(0.9);
+  transform: rotate(45deg);
+}
+
+/* ================================================= header css */
+header {
+  height: var(--headerHeight);
+  @apply relative isolate z-[99];
+}
+header .menu {
+  display: flex;
+  gap: 1.5rem;
+  @apply md:h-full;
+}
+header .menu > li {
+  @apply relative isolate md:h-full;
+}
+header .menu > li > a {
+  @apply md:h-full;
+}
+header .menu li a {
+  @apply capitalize font-poppins text-sm flex gap-2 items-center duration-300;
+}
+header .menu li > ul {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  visibility: hidden;
+  opacity: 0;
+  @apply bg-primary-200 rounded-sm shadow-md;
+}
+header .menu > li:hover > a {
+  @apply text-primary-600;
+}
+header .menu li > ul li > a {
+  white-space: nowrap;
+  @apply inline-block w-full p-2 flex;
+}
+header .menu li > ul > li > a > svg {
+  transform: rotate(270deg);
+}
+header .menu li > ul li:hover {
+  @apply bg-primary-300;
+}
+header .menu li > ul > li > ul {
+  position: absolute;
+  top: 0%;
+  left: 100%;
+  transform: translateX(0%);
+  @apply bg-primary-100;
+}
+header .menu li:hover > ul {
+  visibility: visible;
+  opacity: 1;
+}
+/* mobile menu */
+header .menu li > input[type="checkbox"],
+header .menu li > label {
+  display: none;
+}
+@media (max-width: 768px) {
+  header .menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: clamp(200px, 30vw, 300px);
+    height: calc(100vh - var(--headerHeight));
+    overflow-y: auto;
+    flex-direction: column;
+    gap: 0.8rem;
+    transform: translateX(100%);
+    transition: 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    @apply bg-primary-100 p-2;
+  }
+  header .menu.active {
+    transform: translateX(0%);
+  }
+  header .menu li > ul > li:has(ul) {
+    @apply bg-secondary-100;
+  }
+  header .menu li > ul > li > a {
+    font-size: 13px;
+    @apply p-1;
+  }
+  header .menu li > ul {
+    position: initial;
+    top: initial;
+    left: initial;
+    transform: initial;
+    visibility: visible;
+    opacity: 1;
+    max-height: 0px;
+    overflow: hidden;
+    @apply bg-secondary-200 rounded-sm shadow-none;
+  }
+  header .menu li {
+    @apply gap-2;
+  }
+  header .menu > li:has(ul) > a,
+  header .menu > li > ul > li:has(ul) > a {
+    display: none;
+  }
+  header .menu li > label {
+    @apply flex capitalize justify-between items-center gap-2 p-1;
+  }
+  header .menu li > label > svg {
+    @apply duration-300 text-primary-600;
+  }
+
+  header .menu li.topLevelDropBox > label span {
+    @apply text-[16px];
+  }
+  header .menu li > label span {
+    margin-right: auto;
+    @apply text-sm;
+  }
+  header .menu li > label a {
+    @apply flex justify-center items-center text-white shadow-md bg-primary-400 p-1 rounded w-10;
+  }
+  header .menu li > label a:hover {
+    @apply bg-primary-500;
+  }
+  header .menu li > ul > li > ul {
+    position: initial;
+    top: initial;
+    left: initial;
+    transform: initial;
+    @apply bg-secondary-100;
+  }
+  /* header .menu li > ul > li:has(ul), */
+  header .menu li > ul > li:has(ul) > label {
+    @apply border-b-2 border-primary-300;
+  }
+  header .menu li > input[type="checkbox"]:checked ~ ul {
+    max-height: 1000px;
+  }
+  header .menu li > input[type="checkbox"]:checked ~ label {
+    @apply bg-primary-200;
+  }
+  header .menu li > ul > li:has(ul) > input[type="checkbox"]:checked ~ label {
+    @apply bg-primary-300;
+  }
+  header .menu li > input[type="checkbox"]:checked ~ label > svg {
+    transform: rotate(45deg);
+  }
+}
+/* ================================================== Hero css */
+.hero .heroLeft .content h2 {
+  @apply uppercase font-bold text-[clamp(3rem,5vw,6rem)] leading-none;
+}
+.hero .heroLeft .content h2:nth-child(1) {
+  @apply text-primary-500;
+}
+.hero .heroLeft .content h2:nth-child(2) {
+  @apply text-success-400;
+}
+.hero .heroLeft .content h2:nth-child(3) {
+  @apply text-secondary-500;
+}
+/*  =========================================================== service section css */
+.serviceCard {
+  border-radius: 1rem 1rem clamp(1rem, 3vw, 6rem) clamp(1rem, 3vw, 6rem);
+  @apply border-b-4 border-primary-100;
+}
+.serviceCard:nth-child(2n) {
+  border-radius: clamp(1rem, 3vw, 6rem) clamp(1rem, 3vw, 6rem) 1rem 1rem;
+  @apply border-secondary-100;
+}
+.serviceCard .imgBox {
+  @apply flex justify-center relative isolate overflow-hidden aspect-video;
+}
+.serviceCard .imgBox img {
+  @apply object-cover;
+}
+.serviceCard:hover .imgBox > img {
+  @apply blur-sm;
+}
+
+.serviceCard .imgBox .iconImg {
+  border-radius: 2rem 2rem 0 0;
+  @apply w-[120px] mx-auto translate-y-full duration-500 absolute bottom-0 bg-white border-primary-300 border-4;
+}
+.serviceCard:nth-child(2n) .imgBox .iconImg {
+  border-radius: 2rem 2rem 0 0;
+  @apply border-secondary-300;
+}
+.serviceCard .imgBox .iconImg img {
+  @apply p-4;
+}
+.serviceCard:hover .iconImg {
+  @apply translate-y-0;
+}
+.serviceCard .contentBox {
+  @apply relative isolate overflow-hidden;
+}
+.serviceCard .contentBox::before {
+  content: "";
+  @apply absolute top-0 left-0 w-full h-full duration-300 bg-primary-300 -z-10 -translate-y-[95%];
+}
+.serviceCard:nth-child(2n) .contentBox::before {
+  content: "";
+  @apply bg-secondary-300;
+}
+.serviceCard:hover .contentBox::before {
+  @apply translate-y-0;
+}
+.serviceCard:hover .contentBox p,
+.serviceCard:hover .contentBox h3,
+.serviceCard:hover .contentBox a {
+  @apply text-white;
+}
+/* ================================================horizontalScroller */
+.horizontalScroller {
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent,
+    white 20%,
+    white 80%,
+    transparent
+  );
+}
+.horizontalScroller .horizontalScrollerWrapper {
+  animation: infiniteScroll infinite linear 40s;
+  width: fit-content;
+}
+.horizontalScroller .horizontalScrollerWrapper:hover {
+  animation-play-state: paused;
+}
+.horizontalScroller .horizontalScrollerWrapper .item:hover {
+  @apply scale-105 duration-300 cursor-pointer;
+}
+
+@keyframes infiniteScroll {
+  to {
+    transform: translateX(calc(-50% - 0.5rem));
+  }
+}
+/* ==========================================whyUsSection */
+.whyUsSection .whyUsLeft .imgBox {
+  box-shadow: -20px 20px #ffa98f;
+}
+.whyUsSection .whyUsRight .whyUsCard {
+  border: 2px solid white;
+  @apply rounded-lg relative isolate overflow-hidden duration-300;
+}
+.whyUsSection .whyUsRight .whyUsCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(95%);
+  @apply bg-primary-400 rounded-md duration-300;
+  z-index: -1;
+}
+.whyUsSection .whyUsRight .whyUsCard:nth-child(2n) {
+  @apply md:flex-row flex-row-reverse;
+}
+.whyUsSection .whyUsRight .whyUsCard:nth-child(2n)::before {
+  @apply bg-secondary-400;
+}
+.whyUsSection .whyUsRight .whyUsCard:hover {
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.189);
+}
+.whyUsSection .whyUsRight .whyUsCard:hover::before {
+  transform: translateY(0%);
+}
+.whyUsSection .whyUsRight .whyUsCard:hover .content p,
+.whyUsSection .whyUsRight .whyUsCard:hover .content h3 {
+  @apply text-white;
+}
+/* ===============================================footer css */
+footer .footerBox h3 {
+  @apply text-xl uppercase font-bold mb-2;
+}
+footer .footerBox ul li {
+  @apply flex gap-2 mb-2;
+}
+footer .footerBox ul li span {
+  @apply flex gap-2 whitespace-nowrap;
+}
+footer .footerBox ul li span:has(svg) {
+  @apply flex items-center;
+}
+footer .footerBox ul li span svg {
+  @apply text-xl w-7 h-7 bg-primary-600 p-1 rounded-full;
+}
+footer .footerBox ul li a {
+  @apply capitalize;
+}
+footer .footerBox ul li a:hover {
+  @apply text-zinc-700;
+}
+footer .footerBox.socialLinks ul {
+  @apply flex gap-2;
+}
+footer .footerBox.socialLinks ul li a {
+  width: 40px;
+  height: 40px;
+  @apply flex justify-center items-center text-xl rounded-md;
+}
+/* ===========================================================breadcrumbSection */
+.breadcrumbSection > img {
+  @apply absolute top-0 left-0 -z-10 w-full h-full object-cover min-h-[100%] min-w-[100%];
+}
+.breadcrumbSection .breadcrumb .divider {
+  @apply text-xl;
+}
+.breadcrumbSection .breadcrumb a:hover {
+  @apply text-yellow-200;
+}
+/* ===========================================================cardsContainer */
+.card {
+  box-shadow: 0px 0px 2px 2px rgba(241, 241, 241, 0.364);
+  @apply bg-primary-50 rounded-md overflow-hidden relative isolate;
+}
+.card.shadow-none {
+  box-shadow: none;
+}
+.card:nth-child(2n) {
+  @apply bg-primary-100;
+}
+.card::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  transform: translateY(99%);
+  transition: 300ms ease;
+  @apply bg-secondary-500;
+}
+.card:nth-child(2n)::before {
+  @apply bg-primary-500;
+}
+/* .card:hover::before{
+  transform: translateY(50%);
+} */
+.card .imgBox {
+  aspect-ratio: 17/9;
+  @apply flex;
+}
+.card .content {
+  @apply p-2;
+}
+.card .content h3 {
+  @apply text-[16px] leading-normal capitalize text-secondary-600 font-bold;
+}
+.card .content .categories {
+  @apply flex flex-wrap h-fit gap-1;
+}
+.card .content .categories span {
+  @apply capitalize text-primary-600;
+}
+.card .content .badge {
+  @apply flex justify-center items-center w-fit text-sm p-1 py-0 text-white lowercase bg-green-500 rounded-sm hover:bg-success-400 duration-300;
+}
+.card .content .bottom .badge.time {
+  @apply bg-primary-600;
+}
+.card .content .bottom a.readmore {
+  @apply capitalize bg-secondary-600 text-white text-sm p-1 hover:bg-secondary-500 rounded-sm;
+}
+/* ========================================================= swiper slider css */
+.swiperSlider {
+  padding-bottom: 40px;
+}
+.swiperSlider .swiper-pagination .swiper-pagination-bullet {
+  @apply bg-primary-500 w-3 h-3 rounded-none  scale-75 duration-200;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  color: #000; /* or your desired color */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ===================================================== recipeContentContainer */
+.recipeContentContainer h1 {
+  @apply text-primary-600;
+}
+.recipeContentContainer h1,
+.recipeContentContainer h2,
+.recipeContentContainer h3,
+.recipeContentContainer h4,
+.recipeContentContainer h5 {
+  @apply text-primary-500 mb-2 capitalize md:text-start text-center;
+}
+.recipeContentContainer p {
+  @apply mb-2 text-justify;
+}
+.recipeContentContainer ul li {
+  @apply list-disc list-inside;
+}
+
+/* ======================================================== contentHolder css */
+.contentHolder p,
+.contentHolder img,
+.contentHolder h1,
+.contentHolder h2,
+.contentHolder h3,
+.contentHolder h4,
+.contentHolder h5,
+.contentHolder h6 {
+  @apply my-2;
+}
+.contentHolder ul li {
+  list-style-position: inside;
+  list-style-type: disc;
+}
+.contentHolder h1,
+.contentHolder h2 {
+  @apply text-primary-600 capitalize;
+}
+.contentHolder h3,
+.contentHolder h4,
+.contentHolder h5,
+.contentHolder h6 {
+  @apply text-primary-500 capitalize;
+}
+.contentHolder iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  @apply my-2;
+}
