@@ -55,16 +55,18 @@ const RecipePage = async ({ params }) => {
         </div>
         <div className="contentHolder">
           <ContentRendere content={attributes.content} />
-          <iframe
-            width="560"
-            height="315"
-            src={`${attributes.youtubevideo}`}
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
+          {attributes.youtubevideo && (
+            <iframe
+              width="560"
+              height="315"
+              src={`${attributes.youtubevideo}`}
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          )}
         </div>
       </RecipeGrid>
       <RecentRecipes />

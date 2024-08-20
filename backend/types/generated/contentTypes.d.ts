@@ -362,6 +362,83 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiHealthyRecipeHealthyRecipe extends Schema.CollectionType {
+  collectionName: 'healthy_recipes';
+  info: {
+    singularName: 'healthy-recipe';
+    pluralName: 'healthy-recipes';
+    displayName: 'Healthy Recipe';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'api::healthy-recipe.healthy-recipe', 'title'>;
+    featuredImage: Attribute.Media<'images'>;
+    content: Attribute.Blocks;
+    youtubevideo: Attribute.String;
+    recipes_categories: Attribute.Relation<
+      'api::healthy-recipe.healthy-recipe',
+      'oneToMany',
+      'api::recipes-category.recipes-category'
+    >;
+    SEO: Attribute.Component<'seo.seo'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::healthy-recipe.healthy-recipe',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::healthy-recipe.healthy-recipe',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRecipesCategoryRecipesCategory
+  extends Schema.CollectionType {
+  collectionName: 'recipes_categories';
+  info: {
+    singularName: 'recipes-category';
+    pluralName: 'recipes-categories';
+    displayName: 'Recipes Category';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    slug: Attribute.UID<'api::recipes-category.recipes-category', 'name'>;
+    featuredImage: Attribute.Media<'images'>;
+    SEO: Attribute.Component<'seo.seo'>;
+    icon: Attribute.Media<'images'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::recipes-category.recipes-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::recipes-category.recipes-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -788,83 +865,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface ApiHealthyRecipeHealthyRecipe extends Schema.CollectionType {
-  collectionName: 'healthy_recipes';
-  info: {
-    singularName: 'healthy-recipe';
-    pluralName: 'healthy-recipes';
-    displayName: 'Healthy Recipe';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String & Attribute.Required;
-    slug: Attribute.UID<'api::healthy-recipe.healthy-recipe', 'title'>;
-    featuredImage: Attribute.Media<'images'>;
-    content: Attribute.Blocks;
-    youtubevideo: Attribute.String;
-    recipes_categories: Attribute.Relation<
-      'api::healthy-recipe.healthy-recipe',
-      'oneToMany',
-      'api::recipes-category.recipes-category'
-    >;
-    SEO: Attribute.Component<'seo.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::healthy-recipe.healthy-recipe',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::healthy-recipe.healthy-recipe',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiRecipesCategoryRecipesCategory
-  extends Schema.CollectionType {
-  collectionName: 'recipes_categories';
-  info: {
-    singularName: 'recipes-category';
-    pluralName: 'recipes-categories';
-    displayName: 'Recipes Category';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required & Attribute.Unique;
-    slug: Attribute.UID<'api::recipes-category.recipes-category', 'name'>;
-    featuredImage: Attribute.Media<'images'>;
-    SEO: Attribute.Component<'seo.seo'>;
-    icon: Attribute.Media<'images'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::recipes-category.recipes-category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::recipes-category.recipes-category',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -875,6 +875,8 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::healthy-recipe.healthy-recipe': ApiHealthyRecipeHealthyRecipe;
+      'api::recipes-category.recipes-category': ApiRecipesCategoryRecipesCategory;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -883,8 +885,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::healthy-recipe.healthy-recipe': ApiHealthyRecipeHealthyRecipe;
-      'api::recipes-category.recipes-category': ApiRecipesCategoryRecipesCategory;
     }
   }
 }
